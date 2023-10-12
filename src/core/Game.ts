@@ -12,7 +12,7 @@ export default class Game {
     protected mapLoaded: string = 'spawn'
     private entities: Entity[] = []
     public loop: Loop
-    private document: Document
+    private readonly document: Document
 
     constructor(launcher: Launcher, mapToLoad: string, document: Document) {
         this.launcher = launcher
