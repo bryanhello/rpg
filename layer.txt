@@ -1,0 +1,3 @@
+0 - sol / objets cachés
+1 - tronc d'arbres / bush / player / entity / deco / etc
+2 - feuills d'arbres / nuages / tout ce qui hover le player et les entités

@@ -1,16 +1,68 @@
 import JsonMapParser, {collideMap} from "./jsonMapParser.ts";
 
-
+type mapLayer = {
+    "ground" : {
+        "image": HTMLImageElement,
+        "layer": 0
+    },
+    "treeTrunkAndBushes" : {
+        "image": HTMLImageElement,
+        "layer": 1
+    },
+    "decorations" : {
+        "image": HTMLImageElement,
+        "layer": 1
+    },
+    "player" : {
+        "image": HTMLImageElement,
+        "layer": 2
+    },
+    "treeLeaves" : {
+        "image": HTMLImageElement,
+        "layer": 3
+    },
+    "clouds" : {
+        "image": HTMLImageElement,
+        "layer": 4
+    }
+}
 export default class Map{
     public  collideMap: collideMap[]
     public  mapToLoad: string
     public  map: { image:HTMLImageElement, layer:number }[]
     public canvas: HTMLCanvasElement
+    protected mapLayer : mapLayer
     constructor(mapToLoad: string, canvas: HTMLCanvasElement) {
         this.canvas = canvas
         this.collideMap = []
         this.map = []
         this.mapToLoad = mapToLoad
+        this.mapLayer = {
+            "ground" : {
+                "image": new Image(),
+                "layer": 0
+            },
+            "treeTrunkAndBushes" : {
+                "image": new Image(),
+                "layer": 1
+            },
+            "decorations" : {
+                "image": new Image(),
+                "layer": 1
+            },
+            "player" : {
+                "image": new Image(),
+                "layer": 2
+            },
+            "treeLeaves" : {
+                "image": new Image(),
+                "layer": 3
+            },
+            "clouds" : {
+                "image": new Image(),
+                "layer": 4
+            }
+        }
         this.init()
     }
     init(){
@@ -28,26 +80,14 @@ export default class Map{
             ctx.fillRect(block.x, block.y, block.width, block.height)
         })
     }
+
     loadMap(){
-        const groundImage = new Image()
-        const decoImage = new Image()
-        const treesImage = new Image()
-        try{
-            groundImage.src = `public/map/${this.mapToLoad}/ground.png`
-            decoImage.src = `public/map/${this.mapToLoad}/deco.png`
-            treesImage.src = `public/map/${this.mapToLoad}/trees.png`
-            this.map.push({image:groundImage, layer:0},
-                {image: treesImage, layer: 2},{image: decoImage, layer: 2})
-        } catch (e) {
-            console.log(e)
-        }
-        this.map.forEach((img: { image:HTMLImageElement, layer:number }) => {
-            img.image.onload = () => {
-                const ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
-                ctx.drawImage(img.image, 0, 0)
-            }
+        Object.keys(this.mapLayer).forEach((key) => {
+          // @ts-ignore
+            this.mapLayer[key].image.src = `../../public/map/${this.mapToLoad}/images/${key}.png`
         })
     }
+
     update(){
         this.map.forEach((img: { image:HTMLImageElement, layer:number }) => {
             const ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
