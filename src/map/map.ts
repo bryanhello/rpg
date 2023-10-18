@@ -70,6 +70,7 @@ export default class Map{
         const ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
         this.collideMap.forEach((block: collideMap) => {
             ctx.fillRect(block.x, block.y, block.width, block.height)
+
         })
     }
 

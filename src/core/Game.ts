@@ -32,7 +32,7 @@ export default class Game {
         this.loop.update()
         setTimeout(() => {
             this.update()
-        }, 1)
+        }, 1000/60)
     }
     addEntity(entity: Entity){
         this.entities.push(entity)
