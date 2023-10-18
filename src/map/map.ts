@@ -29,13 +29,12 @@ type mapLayer = {
 export default class Map{
     public  collideMap: collideMap[]
     public  mapToLoad: string
-    public  map: { image:HTMLImageElement, layer:number }[]
     public canvas: HTMLCanvasElement
     protected mapLayer : mapLayer
     constructor(mapToLoad: string, canvas: HTMLCanvasElement) {
         this.canvas = canvas
         this.collideMap = []
-        this.map = []
+
         this.mapToLoad = mapToLoad
         this.mapLayer = {
             "ground" : {
@@ -50,10 +49,7 @@ export default class Map{
                 "image": new Image(),
                 "layer": 1
             },
-            "player" : {
-                "image": new Image(),
-                "layer": 2
-            },
+
             "treeLeaves" : {
                 "image": new Image(),
                 "layer": 3
@@ -83,15 +79,22 @@ export default class Map{
 
     loadMap(){
         Object.keys(this.mapLayer).forEach((key) => {
-          // @ts-ignore
-            this.mapLayer[key].image.src = `../../public/map/${this.mapToLoad}/images/${key}.png`
+            try {
+                // @ts-ignore
+                this.mapLayer[key].image.src = `../../public/map/${this.mapToLoad}/${key}.png`
+            }catch (e) {
+                console.log(e)
+            }
+
         })
     }
 
     update(){
-        this.map.forEach((img: { image:HTMLImageElement, layer:number }) => {
+        Object.keys(this.mapLayer).forEach((key) => {
+
             const ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
-            ctx.drawImage(img.image, 0, 0)
+            // @ts-ignore
+            this.mapLayer[key].image.src ? ctx.drawImage(this.mapLayer[key].image, 0, 0) : null
         })
     }
 }
