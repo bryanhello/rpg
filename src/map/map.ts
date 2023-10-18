@@ -13,10 +13,7 @@ type mapLayer = {
         "image": HTMLImageElement,
         "layer": 1
     },
-    "player" : {
-        "image": HTMLImageElement,
-        "layer": 2
-    },
+
     "treeLeaves" : {
         "image": HTMLImageElement,
         "layer": 3
@@ -49,7 +46,6 @@ export default class Map{
                 "image": new Image(),
                 "layer": 1
             },
-
             "treeLeaves" : {
                 "image": new Image(),
                 "layer": 3
