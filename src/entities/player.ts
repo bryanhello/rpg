@@ -29,9 +29,10 @@ export default class Player extends Entity {
                 this.direction = 'Right'
                 break
         }
-
+        this.update()
     }
     resetMovement(){
+        this.update()
         this.numberOfFrame = 2
         this.movement = 'idle'
     }
@@ -43,5 +44,10 @@ export default class Player extends Entity {
             this.currentFrame++
         }
         super.update()
+    }
+
+    getMovement(): string {
+        if(this.movement == undefined) return 'idle'
+        return this.movement
     }
 }

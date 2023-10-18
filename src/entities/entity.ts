@@ -87,4 +87,7 @@ export default class Entity{
     getName(){
         return this.name
     }
+    getSprite(){
+        return this.sprite
+    }
 }
